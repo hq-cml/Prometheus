@@ -30,6 +30,17 @@
             $this->arr_conf = $this->arr_conf + $arr_config;   //合并配置，如果出现了相同的key，会覆盖
             $this->compiler = new CompileClass();
         }
+        
+        //获取模板引擎实例（单例模式）
+        public static function get_instance()
+        {
+            if(is_null(self::$instance))
+            {
+                self::$instance = new TemplateClass();
+            }
+
+            return self::$instance;
+        }
 
         
         
