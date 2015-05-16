@@ -88,6 +88,29 @@
         {
             return $this->arr_conf['template_dir'].$this->file.$this->arr_conf['suffix'];
         }
+        
+        //display函数
+        public function display($file)
+        {
+            $this->file = $file;
+            
+            //判断模板文件是否存在
+            if(!is_file($this->file_path()))
+            {
+                die("File Not Found!");
+            }
+
+            //判断编译缓存，如果不存在，则编译缓存之
+            $compile_file = $this->arr_conf['compile_dir'].md5($file).".".$this->file.$this->arr_conf['suffix'].".php";//编译成php文件
+            if(!is_file($compile_file))
+            {
+                if(!is_dir($this->arr_conf['compile_dir'])) mkdir($this->arr_conf['compile_dir']);
+                $this->compiler->compile($compile_file, $this->file_path());
+            }
+            
+            readfile($compile_file);
+            
+        }
 
         
         
