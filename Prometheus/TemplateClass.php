@@ -67,6 +67,21 @@
                 return $this->arr_conf;
             }
         }
+        
+        //assign指派
+        public function assign($key, $value)
+        {
+            $this->value[$key] = $value;
+        }
+        
+        //批量指派
+        public function assign_arr($array)
+        {
+            if(is_array($array))
+            {
+                $this->value = $this->value + $array;
+            }
+        }
 
         
         
