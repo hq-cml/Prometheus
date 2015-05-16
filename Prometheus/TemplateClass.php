@@ -41,6 +41,32 @@
 
             return self::$instance;
         }
+        
+        //模板引擎配置函数
+        public function set_config($key, $value=NULL)
+        {
+            if(is_array($key))
+            {
+                $this->arr_conf = $key + $this->arr_conf;      //合并配置，如果出现了相同的key，会覆盖
+            }
+            else
+            {
+                $this->arr_conf[$key] = $value;
+            }
+        }
+        
+        //模板引擎配置获取
+        public function get_config($key = NULL)
+        {
+            if($key)
+            {
+                return $this->arr_conf[$key];
+            }
+            else
+            {
+                return $this->arr_conf;
+            }
+        }
 
         
         
