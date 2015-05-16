@@ -82,6 +82,12 @@
                 $this->value = $this->value + $array;
             }
         }
+        
+        //获取成员$file的位置
+        public function file_path()
+        {
+            return $this->arr_conf['template_dir'].$this->file.$this->arr_conf['suffix'];
+        }
 
         
         
