@@ -23,6 +23,13 @@
         static private $instance = NULL;     //单实例（单例模式）
                 
         public  $file;                       //模板文件名称（仅文件名，不带后缀名，也不带路径）
+        
+        //构造函数
+        public function __construct($arr_config = array())
+        {
+            $this->arr_conf = $this->arr_conf + $arr_config;   //合并配置，如果出现了相同的key，会覆盖
+            $this->compiler = new CompileClass();
+        }
 
         
         
