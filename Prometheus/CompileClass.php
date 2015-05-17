@@ -22,7 +22,8 @@
 
         public function compile($dest_file, $src_file)
         {
-            file_put_contents($dest_file, file_get_contents($src_file));
+            $this->content = file_get_contents($src_file);
+            file_put_contents($dest_file, $this->content);
         }
         
         
