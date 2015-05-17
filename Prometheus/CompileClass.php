@@ -4,7 +4,7 @@
      * Author: HQ
      * Version: 0.1
      *
-     * Description：Basic Compile Class
+     * Description：Basic Compile Class. Convert the html into php.
      */
     
     class CompileClass
