@@ -19,10 +19,18 @@
         public function __construct()
         {
         }
-
+        
+        public function c_var()
+        {
+            $pattern = "/\{\\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)\}/";
+            $this->content = preg_replace($pattern, "<?php echo \$this->value['\\1'] ?>", $this->content);
+        }
+        
         public function compile($dest_file, $src_file)
         {
             $this->content = file_get_contents($src_file);
+            $this->c_var();
+            
             file_put_contents($dest_file, $this->content);
         }
         
