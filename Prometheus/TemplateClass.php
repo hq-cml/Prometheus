@@ -108,8 +108,8 @@
                 $this->compiler->compile($compile_file, $this->file_path());
             }
             
-            readfile($compile_file);
-            
+            //readfile($compile_file);
+            include ($compile_file);
         }
         
         
