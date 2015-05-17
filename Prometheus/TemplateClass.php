@@ -11,17 +11,24 @@
     {
         //配置
         private $arr_conf = array(
-            'suffix'        => '.html',      //模板文件的后缀
-            'template_dir'  => 'html/',      //模板文件所在目录
-            'compile_dir'   => 'cache/',     //编译后的缓存文件所在目录
-            'cache_html'    => false,        //是否编译成静态的html文件
-            'suffix_cache'  => '.htm',       //编译后的文件的后缀
-            'cache_time'    => 3600,         //缓存时间
+            'suffix'         => '.html',       //模板文件的后缀
+            'template_dir'   => 'html/',       //模板文件所在目录
+            'compile_dir'    => 'cache/',      //编译后的缓存文件所在目录
+            'cache_html'     => false,         //是否编译成静态的html文件
+            'suffix_cache'   => '.htm',        //缓存后的文件的后缀
+            'suffix_compile' => '.php',        //编译后的文件的后缀
+            'cache_time'     => 3600,          //缓存时间
+            
+            'php_turn'       => true,          //是否支持原生PHP
+            'cache_control'  => 'control.dat', //
+            'debug'          => false          //调试开关
         );
+        private $control_data    = array();
         private $value           = array();  //所有由php待输出的变量
-        private $compiler;                   //编译器
+        private $compiler;                   //编译器实例
         static private $instance = NULL;     //单实例（单例模式）
                 
+        public  $debug           = array();  //调试信息        
         public  $file;                       //模板文件名称（仅文件名，不带后缀名，也不带路径）
         
         //构造函数
