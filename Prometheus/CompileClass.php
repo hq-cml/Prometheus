@@ -39,12 +39,13 @@
             
         }
         
-        public function compile($dest_file, $src_file)
+        
+        public function compile()
         {
-            $this->content = file_get_contents($src_file);
-            $this->c_var();
+            //批量解析
+            $this->content = preg_replace($this->$arr_pattern, $this->$arr_replace, $this->content);
             
-            file_put_contents($dest_file, $this->content);
+            file_put_contents($this->compiled_file, $this->content);
         }
         
         
