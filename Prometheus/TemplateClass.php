@@ -123,7 +123,7 @@
         public function re_cache_html($file)
         {
             $flag = false;
-            $cache_file = $this->arr_conf['compile_file'].md5($file).".".$file.$this->arr_conf['suffix_cache'];
+            $cache_file = $this->arr_conf['compile_dir'].md5($file).".".$file.$this->arr_conf['suffix_cache'];
             
             //如果需要缓存html
             if($this->arr_conf['cache_html'])
