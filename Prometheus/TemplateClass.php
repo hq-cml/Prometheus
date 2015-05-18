@@ -141,7 +141,7 @@
             }
             return $flag;
         }     
-        
+
         //display函数
         public function display($file)
         {
@@ -150,24 +150,61 @@
             //判断模板文件是否存在
             if(!is_file($this->file_path()))
             {
-                die("File Not Found!");
+                die("Template File Not Found!");
             }
 
             //判断编译缓存，如果不存在，则编译缓存之
-            $compile_file = $this->arr_conf['compile_dir'].md5($file).".".$this->file.$this->arr_conf['suffix'].".php";//编译成php文件
-            if(!is_file($compile_file))
+            $compile_file = $this->arr_conf['compile_dir'].md5($file).".".$file.$this->arr_conf['suffix_compile']; //编译成php文件
+            $cache_file   = $this->arr_conf['compile_dir'].md5($file).".".$file.$this->arr_conf['suffix_cache'];  //缓存成htm文件
+            
+            
+            
+            
+            if(! $this->re_cache_html($file))
             {
-                if(!is_dir($this->arr_conf['compile_dir'])) mkdir($this->arr_conf['compile_dir']);
-                $this->compiler->compile($compile_file, $this->file_path());
+                //不需要重新缓存html
+                $this->debug['cached'] = 'false';
+                $this->compiler = new CompileClass($this->file_path(), $compile_file, $this->arr_conf);
+                
+                if($this->arr_conf['cache_html'])
+                {
+                    //此函数将打开输出缓冲。当输出缓冲激活后，脚本将不会输出内容（除http标头外），
+                    //相反需要输出的内容被存储在内部缓冲区中，内部缓冲区的内容可以用ob_get_contents()函数复制到一个字符串变量中。
+                    ob_start();
+                }
+                
+                //从数组中把变量导入到当前的符号表中。
+                //对于数组中的每个元素，键名用于变量名，键值用于变量值。
+                extract($this->value, EXTR_OVERWRITE); 
+                
+                //如果编译文件不存在，或者模板文件比编译文件新，则需要重新编译
+                if(!is_file($compile_file) || filetime($compile_file) < filetime($this->file_path()))
+                {
+                    $this->compiler->vars = $this->value;
+                    $this->compiler->compile();
+                }
+                
+                //讲编译后的文件引入（执行了编译后的php文件）
+                include $compile_file;
+                
+                if($this->arr_conf['cache_html'])
+                {
+                    $message = ob_get_contents();
+                    file_put_contents($cache_file, $message); //缓存成静态html
+                }
+            }
+            else
+            {
+                readfile();//直接输出缓存静态html
+                $this->debug['cached'] = 'true';
             }
             
-            //readfile($compile_file);
-            include ($compile_file);
+            $this->debug['spend'] = microtime(true)-$this->debug['begin'];
+            $this->debug['count'] = count($this->value);
+            
+            $this->debug_info();
+
         }
-        
-        
-        
-        
         
         public function debug_info()
         {
