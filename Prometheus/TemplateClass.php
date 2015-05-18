@@ -51,6 +51,12 @@
             //留到需要编译的时候，再实例化，提高效率
             //$this->compiler = new CompileClass();
         }
+        //获取绝对路径
+        private function convert_real_path()
+        {
+            $pwd = strtr(dirname(dirname(__FILE__)), '\\', '/').'/'; //当前路径，两次调用dirname的原因是TmplateClass是放在Prometheus目录下的，需要返回上层目录
+            $this->arr_conf['template_dir'] = $pwd.$this->arr_conf['template_dir'];
+            $this->arr_conf['compile_dir']  = $pwd.$this->arr_conf['compile_dir'];
         }
         
         //获取模板引擎实例（单例模式）
