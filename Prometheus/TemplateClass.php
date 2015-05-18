@@ -34,8 +34,23 @@
         //构造函数
         public function __construct($arr_config = array())
         {
-            $this->arr_conf = $this->arr_conf + $arr_config;   //合并配置，如果出现了相同的key，会覆盖
-            $this->compiler = new CompileClass();
+            $this->debug['begin'] = microtime(true);
+            $this->arr_conf = $this->arr_conf + $arr_config;   //合并配置，如果出现了相同的key，会覆盖 
+            $this->convert_real_path();
+
+            if(!is_dir($this->arr_conf['template_dir']))
+            {
+                die("Template dir isn't found!");
+            }
+            
+            if(!is_dir($this->arr_conf['compile_dir']))
+            {
+                mkdir($this->arr_conf['compile_dir'], 0770, true);//递归创建
+            }            
+
+            //留到需要编译的时候，再实例化，提高效率
+            //$this->compiler = new CompileClass();
+        }
         }
         
         //获取模板引擎实例（单例模式）
