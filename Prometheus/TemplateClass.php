@@ -169,6 +169,19 @@
         
         
         
+        public function debug_info()
+        {
+            if($this->arr_conf['debug'])
+            {
+                echo "<Br>", '--------------------Debug Info------------------', "<Br>";
+                echo "模板解析耗时：", $this->debug['spend'], '秒', "<br>";
+                echo "模板包含变量数：", $this->debug['count'], "<br>";
+                echo "是否进行了重新编译：", $this->debug['compile'], "<br>";
+                echo "是否进行了静态缓存生产：", $this->debug['generate_cache'], "<br>";
+                echo "是否使用了静态缓存：", $this->debug['use_cache'], "<br>";
+                echo "<Br>", '--------------------Debug Info------------------', "<Br>";
+            }
+        }
     }
     
     
