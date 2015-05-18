@@ -51,6 +51,7 @@
             //留到需要编译的时候，再实例化，提高效率
             //$this->compiler = new CompileClass();
         }
+        
         //获取绝对路径
         private function convert_real_path()
         {
@@ -107,7 +108,7 @@
         {
             if(is_array($array))
             {
-                $this->value = $this->value + $array;
+                $this->value = $this->value + $array;      //合并配置，如果出现了相同的key，会覆盖
             }
         }
         
@@ -116,6 +117,30 @@
         {
             return $this->arr_conf['template_dir'].$this->file.$this->arr_conf['suffix'];
         }
+        
+        //判断是否需要重新缓存html
+        //只是判断是否需要生产缓存的html，与是否需要编译html成为php无关！
+        public function re_cache_html($file)
+        {
+            $flag = false;
+            $cache_file = $this->arr_conf['compile_file'].md5($file).".".$file.$this->arr_conf['suffix_cache'];
+            
+            //如果需要缓存html
+            if($this->arr_conf['cache_html'])
+            {
+                $time_flag = (time() - @filetime($cache_file)) < $this->arr_conf['cache_time']? true:false;
+                
+                if(is_file($cache_file) && filesize($cache_file)>1 && $time_flag )
+                {
+                    $flag = true;
+                }
+                else
+                {
+                    $flag = false;
+                }
+            }
+            return $flag;
+        }     
         
         //display函数
         public function display($file)
