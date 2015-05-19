@@ -162,25 +162,22 @@
             $cache_file   = $this->arr_conf['compile_dir'].md5($file).".".$file.$this->arr_conf['suffix_cache'];  //缓存成htm文件
 
             //判断配置，是否需要使用缓存
+
             if($this->arr_conf['cache_html'])
             {
-                //判断是否缓存过期或不存在，需要重新生成
-                if($this->re_cache_html($file))
+                $compile_file_time  = @filemtime($compile_file);
+                $template_file_time = @filemtime($this->file_path());
+                
+                //如果编译文件不存在，或者模板文件比编译文件新，或者静态缓存过期
+                //则需要重新编译，并重新生成静态html缓存
+                if(!is_file($compile_file) || $compile_file_time < $template_file_time || $this->re_cache_html($file))
                 {
                     //此函数将打开输出缓冲。当输出缓冲激活后，脚本将不会输出内容（除http标头外），
                     //相反需要输出的内容被存储在内部缓冲区中，内部缓冲区的内容可以用ob_get_contents()函数复制到一个字符串变量中。
                     ob_start();
                     
-                    //如果编译文件不存在，或者模板文件比编译文件新，则需要重新编译
-                    $compile_file_time  = @filemtime($compile_file);
-                    $template_file_time = @filemtime($this->file_path());
-                    if(!is_file($compile_file) || $compile_file_time < $template_file_time)
-                    {
-                        //$this->compiler->vars = $this->value;
-                        $this->compiler = new CompileClass($this->file_path(), $compile_file, $this->arr_conf);
-                        $this->compiler->compile();
-                        $this->debug['compile'] = 'true';
-                    }
+                    $this->compiler = new CompileClass($this->file_path(), $compile_file, $this->arr_conf);
+                    $this->compiler->compile();
                     
                     //将编译后的文件引入（执行了编译后的php文件）
                     include $compile_file;
@@ -188,6 +185,8 @@
                     //捕获缓冲区
                     $message = ob_get_contents();
                     file_put_contents($cache_file, $message); //缓存成静态html
+                    
+                    $this->debug['compile'] = 'true';
                     $this->debug['use_cache'] = 'false';
                     $this->debug['generate_cache'] = 'true';
                 }
@@ -199,6 +198,7 @@
                     //$this->debug['compile']        = 'false';
                     //$this->debug['generate_cache'] = 'false';
                 }
+
             }
             else
             {
