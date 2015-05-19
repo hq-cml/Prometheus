@@ -125,18 +125,18 @@
             $flag = false;
             $cache_file = $this->arr_conf['compile_dir'].md5($file).".".$file.$this->arr_conf['suffix_cache'];
             
-            //如果需要缓存html
+            //判断配置文件，是否需要缓存html
             if($this->arr_conf['cache_html'])
             {
-                $time_flag = (time() - @filetime($cache_file)) < $this->arr_conf['cache_time']? true:false;
-                
-                if(is_file($cache_file) && filesize($cache_file)>1 && $time_flag )
+                //如果文件不存在，则需要缓存html
+                //如果文件存在，则判断当前时间和修改时间距离，如果大于过期时间，也需要重新缓存
+                if(is_file($cache_file))
                 {
-                    $flag = true;
+                    $flag = (time() - @filemtime($cache_file)) > $this->arr_conf['cache_time']? true:false;
                 }
                 else
                 {
-                    $flag = false;
+                    $flag = true;
                 }
             }
             return $flag;
