@@ -7,8 +7,8 @@
     
     
     $ins->set_config('debug', true);
-    //$ins->set_config('cache_time', 1);   //²âÊÔ²»¶Ï¹ýÆÚ
-    //$ins->set_config('cache_html', false); //²âÊÔ½ûÓÃ¾²Ì¬»º´æ
+    //$ins->set_config('cache_time', 1);    //²âÊÔ²»¶Ï¹ýÆÚ
+    //$ins->set_config('cache_html', true); //²âÊÔÆôÓÃ¾²Ì¬»º´æ
     
-    $ins->assign('data', 5);
+    $ins->assign('data', 6);
     $ins->display('demo');
