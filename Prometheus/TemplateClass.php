@@ -14,7 +14,7 @@
             'suffix'         => '.html',       //模板文件的后缀
             'template_dir'   => 'html/',       //模板文件所在目录
             'compile_dir'    => 'cache/',      //编译后的缓存文件所在目录
-            'cache_html'     => true,         //是否缓存成静态的html文件
+            'cache_html'     => false,         //是否缓存成静态的html文件:通常缓存静态html是比较危险的，因为php部分会动态assign，而缓存静态html会导致assign无法生效
             'suffix_cache'   => '.htm',        //缓存后的文件的后缀
             'suffix_compile' => '.php',        //编译后的文件的后缀
             'cache_time'     => 3600,          //缓存时间
