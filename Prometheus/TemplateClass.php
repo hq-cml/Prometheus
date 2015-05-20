@@ -145,9 +145,9 @@
         //display函数
         public function display($file)
         {
-            $this->debug['use_cache']      = 'true';  //是否使用了静态缓存
-            $this->debug['compile']        = 'false'; //是否进行了重新编译
-            $this->debug['generate_cache'] = 'false'; //是否进行了静态缓存生产
+            $this->debug['compile']        = 'No'; //是否进行了重新编译
+            $this->debug['generate_cache'] = 'No'; //是否进行了静态缓存生产
+            $this->debug['use_cache']      = 'Yes';  //是否使用了静态缓存
             
             $this->file = $file;
             
@@ -186,17 +186,18 @@
                     $message = ob_get_contents();
                     file_put_contents($cache_file, $message); //缓存成静态html
                     
-                    $this->debug['compile'] = 'true';
-                    $this->debug['use_cache'] = 'false';
-                    $this->debug['generate_cache'] = 'true';
+                    $this->debug['compile']        = 'Yes';
+                    $this->debug['generate_cache'] = 'Yes';
+                    $this->debug['use_cache']      = 'No';
                 }
                 else
                 {
                     //有可用的缓存html，则直接输出
                     readfile($cache_file);//直接输出缓存静态html
-                    //$this->debug['use_cache']      = 'true';
-                    //$this->debug['compile']        = 'false';
-                    //$this->debug['generate_cache'] = 'false';
+
+                    $this->debug['compile']        = 'No';
+                    $this->debug['generate_cache'] = 'No';
+                    $this->debug['use_cache']      = 'Yes';
                 }
 
             }
@@ -211,22 +212,19 @@
                     //$this->compiler->vars = $this->value;
                     $this->compiler = new CompileClass($this->file_path(), $compile_file, $this->arr_conf);
                     $this->compiler->compile();
-                    $this->debug['compile'] = 'true';
+                    $this->debug['compile']    = 'Yes';
                 }
                     
                 //将编译后的文件引入（执行了编译后的php文件）
                 include $compile_file;
-                $this->debug['use_cache']      = 'false';
+                $this->debug['generate_cache'] = 'No';
+                $this->debug['use_cache']      = 'No';
             }
-            
 
-            
-            
             $this->debug['spend'] = microtime(true)-$this->debug['begin'];
             $this->debug['count'] = count($this->value);
             
             $this->debug_info();
-
         }
         
         public function debug_info()
