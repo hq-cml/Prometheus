@@ -1,12 +1,14 @@
 <?php
+    header("Content-type: text/html; charset=utf-8");
     include 'Prometheus/TemplateClass.php';
     
     #$ins = TemplateClass::get_instance();
     $ins = new TemplateClass();
     
-    //$ins->file = 'test';
-    //echo "<pre>";
-    //print_r($ins->get_config());
-    //print_r($ins->file_path());
     
+    $ins->set_config('debug', true);
+    //$ins->set_config('cache_time', 1);   //²âÊÔ²»¶Ï¹ýÆÚ
+    //$ins->set_config('cache_html', false); //²âÊÔ½ûÓÃ¾²Ì¬»º´æ
+    
+    $ins->assign('data', 5);
     $ins->display('demo');
