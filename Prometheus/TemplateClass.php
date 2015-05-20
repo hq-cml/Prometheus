@@ -240,6 +240,27 @@
                 echo "<Br>", '--------------------Debug Info------------------', "<Br>";
             }
         }
+        
+        //清理缓存的html文件
+        public function clean($file = NULL)
+        {
+            $path = $this->arr_conf['compile_dir'];
+            if($file === NULL)
+            {
+                //glob() 函数返回匹配指定模式的文件名或目录。
+                //该函数返回一个包含有匹配文件 / 目录的数组。如果出错返回 false。
+                $files = glob($path.'*'.$this->arr_conf['suffix_cache']);
+            }
+            else
+            {
+                $files = array($path.md5($file).'.'.$file.$this->arr_conf['suffix_cache']);
+            }
+            
+            foreach($files as $f)
+            {
+                unlink($f);
+            }
+        }
     }
     
     

@@ -12,3 +12,6 @@
     
     $ins->assign('data', 6);
     $ins->display('demo');
+    
+    //$ins->clean('demo');
+    //$ins->clean();
