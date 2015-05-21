@@ -37,7 +37,9 @@
             //解析{foreach}起始标签，其中很多的*和?是为了之前的空格符
             $this->arr_pattern['foreach_beg_1'] = "/\{ *foreach *\\$(.+) *as *\\$(.+) *\}/";            //{foreach $arr as $v}
             $this->arr_replace['foreach_beg_1'] = "<?php foreach((array)$\\1 as $\\2){ ?>"; 
-            //
+
+            $this->arr_pattern['foreach_beg_2'] = "/\{ *foreach *\\$(.+) *as *\\$(.+) *=> *\\$(.+)\}/";   //{foreach $arr as $k=>$v}
+            $this->arr_replace['foreach_beg_2'] = "<?php foreach((array)$\\1 as $\\2 => $\\3){ ?>";  
             
             //TODO foreach if...else...
             
