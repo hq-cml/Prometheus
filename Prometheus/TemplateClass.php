@@ -156,13 +156,15 @@
             {
                 die("Template File Not Found!");
             }
-
+            
+            //将value值栈中的变量值，导入符号表
+            extract($this->value, EXTR_OVERWRITE);
+            
             //判断编译缓存，如果不存在，则编译缓存之
             $compile_file = $this->arr_conf['compile_dir'].md5($file).".".$file.$this->arr_conf['suffix_compile']; //编译成php文件
             $cache_file   = $this->arr_conf['compile_dir'].md5($file).".".$file.$this->arr_conf['suffix_cache'];  //缓存成htm文件
 
             //判断配置，是否需要使用缓存
-
             if($this->arr_conf['cache_html'])
             {
                 $compile_file_time  = @filemtime($compile_file);
