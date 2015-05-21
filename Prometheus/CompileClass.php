@@ -32,7 +32,7 @@
             
             //解析例如{$var}之类的变量
             $this->arr_pattern['var'] = "/\{\\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)\}/";
-            $this->arr_replace['var'] = "<?php echo \$this->value['\\1'] ?>";
+            $this->arr_replace['var'] = "<?php echo $\\1 ?>";
             
             //
             
