@@ -40,6 +40,11 @@
 
             $this->arr_pattern['foreach_beg_2'] = "/\{ *foreach *\\$(.+) *as *\\$(.+) *=> *\\$(.+)\}/";   //{foreach $arr as $k=>$v}
             $this->arr_replace['foreach_beg_2'] = "<?php foreach((array)$\\1 as $\\2 => $\\3){ ?>";  
+
+            //解析{/foreach}结束标签
+            $this->arr_pattern['foreach_end'] = "/\{\/ *foreach *\}/";
+            $this->arr_replace['foreach_end'] = "<?php } ?>";             
+            
             
             //TODO foreach if...else...
             
