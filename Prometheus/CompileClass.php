@@ -53,6 +53,9 @@
             $this->arr_pattern['elseif'] = "/\{ *(elseif|else if ) *(.+) *\}/"; //{ if }
             $this->arr_replace['elseif'] = "<?php }elseif(\\2){ ?>";
             
+            //解析else
+            $this->arr_pattern['else'] = "/\{ *else *\}/"; //{ if }
+            $this->arr_replace['else'] = "<?php }else{ ?>";
             
             //TODO foreach if...else...
             
