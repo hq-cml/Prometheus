@@ -7,6 +7,7 @@
     
     
     $ins->set_config('debug', true);
+    $ins->set_config('php_turn', true);
     //$ins->set_config('cache_time', 1);    //≤‚ ‘≤ª∂œπ˝∆⁄
     //$ins->set_config('cache_html', true); //≤‚ ‘∆Ù”√æ≤Ã¨ª∫¥Ê
 
