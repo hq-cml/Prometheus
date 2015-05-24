@@ -9,8 +9,10 @@
     $ins->set_config('debug', true);
     //$ins->set_config('cache_time', 1);    //²âÊÔ²»¶Ï¹ýÆÚ
     //$ins->set_config('cache_html', true); //²âÊÔÆôÓÃ¾²Ì¬»º´æ
+
+    $ins->assign('data', 4);
+    $ins->assign('arr', array('a'=>1, 'b'=>2, 'c'=>3));
     
-    $ins->assign('data', 6);
     $ins->display('demo');
     
     //$ins->clean('demo');
