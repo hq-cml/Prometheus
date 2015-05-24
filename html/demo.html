@@ -9,5 +9,14 @@
 {$k}=>{$v}<br>
 {/foreach}
 <br>
+
+{if $data > 6 }
+data大于6
+{elseif $data == 6}
+data等于6
+{else}
+data小于6
+{/if}
+<br>
 hello world!
 <html>
