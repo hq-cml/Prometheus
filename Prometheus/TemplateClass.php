@@ -19,7 +19,7 @@
             'suffix_compile' => '.php',        //编译后的文件的后缀
             'cache_time'     => 3600,          //缓存时间
             
-            'php_turn'       => true,          //是否支持原生PHP
+            'php_turn'       => false,          //是否支持原生PHP
             'cache_control'  => 'control.dat', //
             'debug'          => false          //调试开关
         );
@@ -178,7 +178,7 @@
                     //相反需要输出的内容被存储在内部缓冲区中，内部缓冲区的内容可以用ob_get_contents()函数复制到一个字符串变量中。
                     ob_start();
                     
-                    $this->compiler = new CompileClass($this->file_path(), $compile_file, $this->arr_conf);
+                    $this->compiler = new CompileClass($this->file_path(), $compile_file, $this->arr_conf['php_turn']);
                     $this->compiler->compile();
                     
                     //将编译后的文件引入（执行了编译后的php文件）
@@ -212,7 +212,7 @@
                 if(!is_file($compile_file) || $compile_file_time < $template_file_time)
                 {
                     //$this->compiler->vars = $this->value;
-                    $this->compiler = new CompileClass($this->file_path(), $compile_file, $this->arr_conf);
+                    $this->compiler = new CompileClass($this->file_path(), $compile_file, $this->arr_conf['php_turn']);
                     $this->compiler->compile();
                     $this->debug['compile']    = 'Yes';
                 }

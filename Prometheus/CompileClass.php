@@ -14,20 +14,20 @@
         private $compile_file;           //编译后的文件
         private $left = '{';             //左定界符
         private $right = '}';            //有定界符
-        private $value  = array();       //值栈
-        private $php_turn;          
         private $arr_pattern = array();  //模式数组
         private $arr_replace = array();  //替换数组
         
-        public function __construct($template, $compile_file, $config)
+        public function __construct($template, $compile_file, $php_turn)
         {
             $this->template      = $template;
             $this->compile_file  = $compile_file;
             $this->content       = file_get_contents($template);
             
-            if($config['php_turn'] === false)
+            //PHP的原生语法支持
+            if($php_turn === true)
             {
-                //TODO 原生PHP支持
+                $this->arr_pattern['php_turn'] = "/<\?(=|php|) *(.+) *\?>/is"; //{ if }
+                $this->arr_replace['php_turn'] = "<?\\1\\2 ?>";
             }
             
             //解析例如{$var}之类的变量
@@ -61,7 +61,7 @@
             $this->arr_pattern['if_end'] = "/\{ *\/if *\}/"; //{ /if }
             $this->arr_replace['if_end'] = "<?php } ?>";
             
-            //TODO foreach if...else...
+            //TODO php 函数
             
             
         }
