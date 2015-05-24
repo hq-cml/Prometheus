@@ -49,6 +49,11 @@
             $this->arr_pattern['if_beg'] = "/\{ *if *(.+) *\}/"; //{ if }
             $this->arr_replace['if_beg'] = "<?php if(\\1){ ?>";
             
+            //解析elseif
+            $this->arr_pattern['elseif'] = "/\{ *(elseif|else if ) *(.+) *\}/"; //{ if }
+            $this->arr_replace['elseif'] = "<?php }elseif(\\2){ ?>";
+            
+            
             //TODO foreach if...else...
             
             
