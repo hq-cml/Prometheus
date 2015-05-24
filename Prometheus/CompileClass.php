@@ -57,6 +57,10 @@
             $this->arr_pattern['else'] = "/\{ *else *\}/"; //{ if }
             $this->arr_replace['else'] = "<?php }else{ ?>";
             
+            //解析{/if}
+            $this->arr_pattern['if_end'] = "/\{ *\/if *\}/"; //{ /if }
+            $this->arr_replace['if_end'] = "<?php } ?>";
+            
             //TODO foreach if...else...
             
             
