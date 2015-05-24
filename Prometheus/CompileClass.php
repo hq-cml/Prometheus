@@ -45,6 +45,9 @@
             $this->arr_pattern['foreach_end'] = "/\{\/ *foreach *\}/";
             $this->arr_replace['foreach_end'] = "<?php } ?>";             
             
+            //解析if
+            $this->arr_pattern['if_beg'] = "/\{ *if *(.+) *\}/"; //{ if }
+            $this->arr_replace['if_beg'] = "<?php if(\\1){ ?>";
             
             //TODO foreach if...else...
             
